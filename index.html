@@ -27,6 +27,20 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Ctext x='50%25' y='55%25' font-family='sans-serif' font-size='18' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='middle'%3EP%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='180' height='180' fill='%23000'/%3E%3Ctext x='50%25' y='55%25' font-family='sans-serif' font-size='100' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='middle'%3EP%3C/text%3E%3C/svg%3E">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://hlpfl.vip/">
+
+  <!-- Performance: Preconnect to external resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+  <!-- Theme color for mobile browsers -->
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -463,10 +477,61 @@
       color: var(--text-dim);
     }
 
-    /* Responsive */
+    /* Accessibility: Focus states */
+    *:focus {
+      outline: none;
+    }
+
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--void);
+      padding: 12px 24px;
+      z-index: 10001;
+      font-size: 0.8rem;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: top 0.3s ease;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* Responsive - Tablet */
+    @media (max-width: 1024px) {
+      .template-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+      }
+    }
+
+    /* Responsive - Mobile */
     @media (max-width: 768px) {
       header {
         padding: 16px 24px;
+        padding-top: max(16px, env(safe-area-inset-top));
       }
 
       .nav-links {
@@ -475,27 +540,129 @@
 
       .hero {
         padding: 100px 24px;
+        padding-top: max(100px, calc(80px + env(safe-area-inset-top)));
+        min-height: calc(100vh - env(safe-area-inset-bottom));
+      }
+
+      .hero-logo {
+        width: min(300px, 80vw);
       }
 
       .templates-section {
-        padding: 80px 24px;
+        padding: 60px 16px;
+      }
+
+      .section-header {
+        margin-bottom: 40px;
       }
 
       .template-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .template-card {
+        border-radius: 8px;
+      }
+
+      /* Always show overlay on mobile for touch */
+      .template-preview-overlay {
+        opacity: 1;
+        background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.9) 100%);
+      }
+
+      .view-btn {
+        transform: translateY(0);
+        opacity: 1;
+        padding: 14px 36px;
+        font-size: 0.75rem;
+      }
+
+      .template-info {
+        padding: 20px;
       }
 
       .modal-header {
         flex-wrap: wrap;
         gap: 12px;
+        padding: 12px 16px;
+        padding-top: max(12px, env(safe-area-inset-top));
+      }
+
+      .modal-title {
+        width: 100%;
+        text-align: center;
+        order: -1;
+      }
+
+      .modal-nav {
+        flex: 1;
+        justify-content: center;
+      }
+
+      .modal-nav-btn {
+        width: 48px;
+        height: 48px;
+      }
+
+      footer {
+        padding: 40px 24px;
+        padding-bottom: max(40px, env(safe-area-inset-bottom));
+      }
+    }
+
+    /* Responsive - Small Mobile */
+    @media (max-width: 380px) {
+      .hero h1 {
+        font-size: 1.3rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .template-name {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      :root {
+        --border: #444444;
+        --border-light: #666666;
+        --text-dim: #999999;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      header, .scroll-indicator, .modal, footer {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 40px;
+      }
+
+      .templates-section {
+        padding: 20px;
+      }
+
+      .template-preview {
+        break-inside: avoid;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Skip to main content link for accessibility -->
+  <a href="#templates" class="skip-link">Skip to templates</a>
+
   <!-- Header -->
-  <header>
-    <div class="logo">
+  <header role="banner">
+    <a href="/" class="logo" aria-label="PRIV Home">
       <svg viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="header-chrome" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -513,17 +680,17 @@
         </g>
       </svg>
       <span class="logo-text">Media Kit</span>
-    </div>
-    <nav class="nav-links">
+    </a>
+    <nav class="nav-links" role="navigation" aria-label="Main navigation">
       <a href="#templates">Templates</a>
-      <a href="https://open.spotify.com/artist/0jIqPF7laDAaZmSeoSzLlt" target="_blank">Spotify</a>
-      <a href="https://instagram.com/whereispriv" target="_blank">Instagram</a>
+      <a href="https://open.spotify.com/artist/0jIqPF7laDAaZmSeoSzLlt" target="_blank" rel="noopener noreferrer" aria-label="PRIV on Spotify (opens in new tab)">Spotify</a>
+      <a href="https://instagram.com/whereispriv" target="_blank" rel="noopener noreferrer" aria-label="PRIV on Instagram (opens in new tab)">Instagram</a>
     </nav>
   </header>
 
   <!-- Hero -->
-  <section class="hero">
-    <svg class="hero-logo" viewBox="0 0 320 80" xmlns="http://www.w3.org/2000/svg">
+  <section class="hero" aria-labelledby="hero-title">
+    <svg class="hero-logo" viewBox="0 0 320 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PRIV">
       <defs>
         <linearGradient id="hero-chrome" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" style="stop-color:#ffffff"/>
@@ -542,26 +709,27 @@
         <path d="M200 0 L232 80 L244 80 L276 0 L262 0 L238 60 L214 0 Z"/>
       </g>
     </svg>
-    <h1>Minds Meet in Oblivion*+</h1>
+    <h1 id="hero-title">Minds Meet in Oblivion*+</h1>
     <p>Select Your Media Kit Design</p>
 
-    <div class="scroll-indicator">
+    <div class="scroll-indicator" aria-hidden="true">
       <span>Explore</span>
       <div class="scroll-line"></div>
     </div>
   </section>
 
   <!-- Templates Section -->
-  <section class="templates-section" id="templates">
+  <main>
+  <section class="templates-section" id="templates" aria-labelledby="templates-title">
     <div class="section-header">
       <div class="section-label">Template Gallery</div>
-      <h2 class="section-title">Choose Your Style</h2>
+      <h2 class="section-title" id="templates-title">Choose Your Style</h2>
       <p class="section-desc">Twelve unique media kit designs. Click any template to view it in full detail.</p>
     </div>
 
-    <div class="template-grid">
+    <div class="template-grid" role="list">
       <!-- Template 1 -->
-      <div class="template-card" onclick="openModal(0)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(0)" onkeydown="handleCardKey(event, 0)" aria-label="Minimal Dark template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-1.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -576,7 +744,7 @@
       </div>
 
       <!-- Template 2 -->
-      <div class="template-card" onclick="openModal(1)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(1)" onkeydown="handleCardKey(event, 1)" aria-label="Minimal Dark II template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-2.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -591,7 +759,7 @@
       </div>
 
       <!-- Template 3 -->
-      <div class="template-card" onclick="openModal(2)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(2)" onkeydown="handleCardKey(event, 2)" aria-label="Brand Board template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-3.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -606,7 +774,7 @@
       </div>
 
       <!-- Template 4 -->
-      <div class="template-card" onclick="openModal(3)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(3)" onkeydown="handleCardKey(event, 3)" aria-label="Editorial Chrome template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-4.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -621,7 +789,7 @@
       </div>
 
       <!-- Template 5 -->
-      <div class="template-card" onclick="openModal(4)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(4)" onkeydown="handleCardKey(event, 4)" aria-label="Cinematic template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-5.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -636,7 +804,7 @@
       </div>
 
       <!-- Template 6 -->
-      <div class="template-card" onclick="openModal(5)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(5)" onkeydown="handleCardKey(event, 5)" aria-label="Professional template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-6.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -651,7 +819,7 @@
       </div>
 
       <!-- Template 7 -->
-      <div class="template-card" onclick="openModal(6)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(6)" onkeydown="handleCardKey(event, 6)" aria-label="Brutalist template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-7.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -666,7 +834,7 @@
       </div>
 
       <!-- Template 8 -->
-      <div class="template-card" onclick="openModal(7)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(7)" onkeydown="handleCardKey(event, 7)" aria-label="Ethereal template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-8.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -681,7 +849,7 @@
       </div>
 
       <!-- Template 9 -->
-      <div class="template-card" onclick="openModal(8)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(8)" onkeydown="handleCardKey(event, 8)" aria-label="Gothic template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-9.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -696,7 +864,7 @@
       </div>
 
       <!-- Template 10 -->
-      <div class="template-card" onclick="openModal(9)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(9)" onkeydown="handleCardKey(event, 9)" aria-label="Industrial template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-10.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -711,7 +879,7 @@
       </div>
 
       <!-- Template 11 -->
-      <div class="template-card" onclick="openModal(10)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(10)" onkeydown="handleCardKey(event, 10)" aria-label="Liquid Chrome template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-11.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -726,7 +894,7 @@
       </div>
 
       <!-- Template 12 -->
-      <div class="template-card" onclick="openModal(11)">
+      <article class="template-card" role="listitem" tabindex="0" onclick="openModal(11)" onkeydown="handleCardKey(event, 11)" aria-label="Noir template - click to preview">
         <div class="template-preview">
           <iframe src="templates/template-12.html" loading="lazy"></iframe>
           <div class="template-preview-overlay">
@@ -741,28 +909,29 @@
       </div>
     </div>
   </section>
+  </main>
 
   <!-- Modal -->
-  <div class="modal" id="modal">
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
     <div class="modal-header">
-      <div class="modal-title" id="modal-title">Template</div>
+      <h3 class="modal-title" id="modal-title">Template</h3>
       <div class="modal-nav">
-        <button class="modal-nav-btn" onclick="prevTemplate()" id="prev-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="modal-nav-btn" onclick="prevTemplate()" id="prev-btn" aria-label="Previous template">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M15 18l-6-6 6-6"/>
           </svg>
         </button>
-        <span class="modal-counter" id="modal-counter">1 / 12</span>
-        <button class="modal-nav-btn" onclick="nextTemplate()" id="next-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <span class="modal-counter" id="modal-counter" aria-live="polite">1 / 12</span>
+        <button class="modal-nav-btn" onclick="nextTemplate()" id="next-btn" aria-label="Next template">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M9 18l6-6-6-6"/>
           </svg>
         </button>
       </div>
-      <button class="modal-close" onclick="closeModal()">Close</button>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close modal">Close</button>
     </div>
     <div class="modal-body">
-      <iframe id="modal-iframe" src=""></iframe>
+      <iframe id="modal-iframe" src="" title="Template preview"></iframe>
     </div>
   </div>
 
@@ -788,18 +957,38 @@
     ];
 
     let currentIndex = 0;
+    let lastFocusedElement = null;
+
+    // Handle keyboard activation on template cards
+    function handleCardKey(event, index) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openModal(index);
+      }
+    }
 
     function openModal(index) {
+      lastFocusedElement = document.activeElement;
       currentIndex = index;
       updateModal();
-      document.getElementById('modal').classList.add('active');
+      const modal = document.getElementById('modal');
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+      // Focus the close button for accessibility
+      setTimeout(() => document.querySelector('.modal-close').focus(), 100);
     }
 
     function closeModal() {
-      document.getElementById('modal').classList.remove('active');
+      const modal = document.getElementById('modal');
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
       document.getElementById('modal-iframe').src = '';
+      // Restore focus to the element that opened the modal
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
     }
 
     function updateModal() {
@@ -807,8 +996,13 @@
       document.getElementById('modal-title').textContent = template.name;
       document.getElementById('modal-iframe').src = template.src;
       document.getElementById('modal-counter').textContent = `${currentIndex + 1} / ${templates.length}`;
-      document.getElementById('prev-btn').disabled = currentIndex === 0;
-      document.getElementById('next-btn').disabled = currentIndex === templates.length - 1;
+
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === templates.length - 1;
+      prevBtn.setAttribute('aria-disabled', currentIndex === 0);
+      nextBtn.setAttribute('aria-disabled', currentIndex === templates.length - 1);
     }
 
     function prevTemplate() {
@@ -834,6 +1028,23 @@
       if (e.key === 'ArrowRight') nextTemplate();
     });
 
+    // Trap focus within modal when open
+    document.getElementById('modal').addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+
+      const focusableElements = document.querySelectorAll('#modal button:not([disabled])');
+      const firstFocusable = focusableElements[0];
+      const lastFocusable = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey && document.activeElement === firstFocusable) {
+        e.preventDefault();
+        lastFocusable.focus();
+      } else if (!e.shiftKey && document.activeElement === lastFocusable) {
+        e.preventDefault();
+        firstFocusable.focus();
+      }
+    });
+
     // Smooth scroll for navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -843,6 +1054,25 @@
         });
       });
     });
+
+    // Lazy load iframes on scroll for better performance
+    if ('IntersectionObserver' in window) {
+      const iframeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const iframe = entry.target;
+            if (iframe.dataset.src) {
+              iframe.src = iframe.dataset.src;
+              iframeObserver.unobserve(iframe);
+            }
+          }
+        });
+      }, { rootMargin: '100px' });
+
+      document.querySelectorAll('.template-preview iframe[loading="lazy"]').forEach(iframe => {
+        iframeObserver.observe(iframe);
+      });
+    }
   </script>
 </body>
 </html>
