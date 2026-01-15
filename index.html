@@ -3,34 +3,726 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PRIV Media Kit Builder</title>
-  <link rel="stylesheet" href="/src/styles/main.css">
-<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+  <title>PRIV — Media Kit Templates</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --void: #000000;
+      --deep: #080808;
+      --surface: #0c0c0c;
+      --elevated: #141414;
+      --border: #1a1a1a;
+      --border-light: #2a2a2a;
+      --text: #e8e8e8;
+      --text-muted: #888888;
+      --text-dim: #555555;
+      --accent: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 300;
+      background: var(--void);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Noise overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 10000;
+    }
+
+    .serif {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(180deg, var(--void) 0%, transparent 100%);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo svg {
+      height: 28px;
+      width: auto;
+    }
+
+    .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 48px;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 40%, rgba(30,30,30,0.5) 0%, transparent 70%),
+        var(--void);
+    }
+
+    .hero-logo {
+      width: min(400px, 70vw);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.4s;
+    }
+
+    .hero p {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.6s;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.8s;
+    }
+
+    .scroll-indicator span {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(180deg, var(--text-muted) 0%, transparent 100%);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* Templates Section */
+    .templates-section {
+      padding: 120px 48px;
+      background: var(--deep);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Template Grid */
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 32px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .template-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .template-card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .template-preview {
+      aspect-ratio: 16/10;
+      background: var(--void);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .template-preview iframe {
+      width: 400%;
+      height: 400%;
+      transform: scale(0.25);
+      transform-origin: top left;
+      border: none;
+      pointer-events: none;
+    }
+
+    .template-preview-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.8) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .template-card:hover .template-preview-overlay {
+      opacity: 1;
+    }
+
+    .view-btn {
+      padding: 12px 32px;
+      background: var(--accent);
+      color: var(--void);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    .template-card:hover .view-btn {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .view-btn:hover {
+      background: var(--text-muted);
+    }
+
+    .template-info {
+      padding: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .template-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .template-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .template-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: var(--void);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--text);
+    }
+
+    .modal-nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .modal-nav-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-nav-btn:hover {
+      border-color: var(--border-light);
+      color: var(--text);
+    }
+
+    .modal-nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .modal-counter {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+
+    .modal-close {
+      padding: 10px 24px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      border-color: var(--text-muted);
+      color: var(--text);
+    }
+
+    .modal-body {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 48px;
+      text-align: center;
+      background: var(--void);
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 16px 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 100px 24px;
+      }
+
+      .templates-section {
+        padding: 80px 24px;
+      }
+
+      .template-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-header {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <div class="container">
-      <div class="logo">PRIV Media Kit Builder</div>
-      <nav>
-        <a href="/" class="active">Templates</a>
-        <a href="builder.html">Builder</a>
-      </nav>
+    <div class="logo">
+      <svg viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="header-chrome" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#e8e8e8"/>
+            <stop offset="50%" style="stop-color:#888888"/>
+            <stop offset="100%" style="stop-color:#b0b0b0"/>
+          </linearGradient>
+        </defs>
+        <g fill="url(#header-chrome)">
+          <path d="M0 0 L0 40 L6 40 L6 26 L16 26 C26 26 32 20 32 13 C32 6 26 0 16 0 Z M6 6 L15 6 C22 6 26 9 26 13 C26 17 22 20 15 20 L6 20 Z"/>
+          <path d="M42 0 L42 40 L48 40 L48 26 L56 26 L72 40 L80 40 L62 24 C70 22 74 17 74 13 C74 6 68 0 56 0 Z M48 6 L55 6 C64 6 68 9 68 13 C68 17 64 20 55 20 L48 20 Z"/>
+          <path d="M90 0 L90 40 L96 40 L96 0 Z"/>
+          <path d="M87 -6 L99 -6 L99 -2 L87 -2 Z" opacity="0.6"/>
+          <path d="M108 0 L128 40 L134 40 L154 0 L147 0 L131 32 L115 0 Z"/>
+        </g>
+      </svg>
+      <span class="logo-text">Media Kit</span>
     </div>
+    <nav class="nav-links">
+      <a href="#templates">Templates</a>
+      <a href="https://open.spotify.com/artist/0jIqPF7laDAaZmSeoSzLlt" target="_blank">Spotify</a>
+      <a href="https://instagram.com/whereispriv" target="_blank">Instagram</a>
+    </nav>
   </header>
 
-  <main class="container">
-    <section class="templates-section">
-      <div class="section-header">
-        <h1>Choose Your Template</h1>
-        <p>Select from our collection of professionally designed media kit templates</p>
+  <!-- Hero -->
+  <section class="hero">
+    <svg class="hero-logo" viewBox="0 0 320 80" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hero-chrome" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#ffffff"/>
+          <stop offset="15%" style="stop-color:#e0e0e0"/>
+          <stop offset="40%" style="stop-color:#808080"/>
+          <stop offset="60%" style="stop-color:#606060"/>
+          <stop offset="80%" style="stop-color:#909090"/>
+          <stop offset="100%" style="stop-color:#b0b0b0"/>
+        </linearGradient>
+      </defs>
+      <g fill="url(#hero-chrome)">
+        <path d="M0 0 L0 80 L12 80 L12 52 L30 52 C52 52 64 40 64 26 C64 12 52 0 30 0 Z M12 12 L28 12 C42 12 52 18 52 26 C52 34 42 40 28 40 L12 40 Z"/>
+        <path d="M80 0 L80 80 L92 80 L92 52 L106 52 L132 80 L148 80 L118 48 C132 44 140 34 140 26 C140 12 128 0 106 0 Z M92 12 L104 12 C120 12 128 18 128 26 C128 34 120 40 104 40 L92 40 Z"/>
+        <path d="M164 0 L164 80 L176 80 L176 0 Z"/>
+        <path d="M160 -12 L180 -12 L180 -4 L160 -4 Z" opacity="0.6"/>
+        <path d="M200 0 L232 80 L244 80 L276 0 L262 0 L238 60 L214 0 Z"/>
+      </g>
+    </svg>
+    <h1>Minds Meet in Oblivion*+</h1>
+    <p>Select Your Media Kit Design</p>
+
+    <div class="scroll-indicator">
+      <span>Explore</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Templates Section -->
+  <section class="templates-section" id="templates">
+    <div class="section-header">
+      <div class="section-label">Template Gallery</div>
+      <h2 class="section-title">Choose Your Style</h2>
+      <p class="section-desc">Six unique media kit designs. Click any template to view it in full detail.</p>
+    </div>
+
+    <div class="template-grid">
+      <!-- Template 1 -->
+      <div class="template-card" onclick="openModal(0)">
+        <div class="template-preview">
+          <iframe src="templates/template-1.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">01</div>
+          <div class="template-name">Minimal Dark</div>
+          <div class="template-desc">Clean, understated design with elegant typography and subtle accents.</div>
+        </div>
       </div>
 
-      <div id="template-grid" class="template-grid">
-        <div class="loading">Loading templates...</div>
+      <!-- Template 2 -->
+      <div class="template-card" onclick="openModal(1)">
+        <div class="template-preview">
+          <iframe src="templates/template-2.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">02</div>
+          <div class="template-name">Minimal Dark II</div>
+          <div class="template-desc">Refined variation with enhanced visual hierarchy and spacing.</div>
+        </div>
       </div>
-    </section>
-  </main>
 
-  <script type="module" src="/src/main.ts"></script>
+      <!-- Template 3 -->
+      <div class="template-card" onclick="openModal(2)">
+        <div class="template-preview">
+          <iframe src="templates/template-3.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">03</div>
+          <div class="template-name">Brand Board</div>
+          <div class="template-desc">Comprehensive brand overview with mood board, mockups, and textures.</div>
+        </div>
+      </div>
+
+      <!-- Template 4 -->
+      <div class="template-card" onclick="openModal(3)">
+        <div class="template-preview">
+          <iframe src="templates/template-4.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">04</div>
+          <div class="template-name">Editorial Chrome</div>
+          <div class="template-desc">Sophisticated editorial layout with chrome gradients and rich typography.</div>
+        </div>
+      </div>
+
+      <!-- Template 5 -->
+      <div class="template-card" onclick="openModal(4)">
+        <div class="template-preview">
+          <iframe src="templates/template-5.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">05</div>
+          <div class="template-name">Cinematic</div>
+          <div class="template-desc">Dramatic presentation with bold typography and immersive dark aesthetic.</div>
+        </div>
+      </div>
+
+      <!-- Template 6 -->
+      <div class="template-card" onclick="openModal(5)">
+        <div class="template-preview">
+          <iframe src="templates/template-6.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">06</div>
+          <div class="template-name">Professional</div>
+          <div class="template-desc">Industry-standard media kit format with comprehensive brand guidelines.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Template</div>
+      <div class="modal-nav">
+        <button class="modal-nav-btn" onclick="prevTemplate()" id="prev-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <span class="modal-counter" id="modal-counter">1 / 6</span>
+        <button class="modal-nav-btn" onclick="nextTemplate()" id="next-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+    <div class="modal-body">
+      <iframe id="modal-iframe" src=""></iframe>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 PRIV · HLPFL · All Rights Reserved</p>
+  </footer>
+
+  <script>
+    const templates = [
+      { name: 'Minimal Dark', src: 'templates/template-1.html' },
+      { name: 'Minimal Dark II', src: 'templates/template-2.html' },
+      { name: 'Brand Board', src: 'templates/template-3.html' },
+      { name: 'Editorial Chrome', src: 'templates/template-4.html' },
+      { name: 'Cinematic', src: 'templates/template-5.html' },
+      { name: 'Professional', src: 'templates/template-6.html' }
+    ];
+
+    let currentIndex = 0;
+
+    function openModal(index) {
+      currentIndex = index;
+      updateModal();
+      document.getElementById('modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+      document.body.style.overflow = '';
+      document.getElementById('modal-iframe').src = '';
+    }
+
+    function updateModal() {
+      const template = templates[currentIndex];
+      document.getElementById('modal-title').textContent = template.name;
+      document.getElementById('modal-iframe').src = template.src;
+      document.getElementById('modal-counter').textContent = `${currentIndex + 1} / ${templates.length}`;
+      document.getElementById('prev-btn').disabled = currentIndex === 0;
+      document.getElementById('next-btn').disabled = currentIndex === templates.length - 1;
+    }
+
+    function prevTemplate() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateModal();
+      }
+    }
+
+    function nextTemplate() {
+      if (currentIndex < templates.length - 1) {
+        currentIndex++;
+        updateModal();
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('modal').classList.contains('active')) return;
+
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') prevTemplate();
+      if (e.key === 'ArrowRight') nextTemplate();
+    });
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
 </body>
 </html>
