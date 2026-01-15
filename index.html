@@ -532,7 +532,7 @@
     <div class="section-header">
       <div class="section-label">Template Gallery</div>
       <h2 class="section-title">Choose Your Style</h2>
-      <p class="section-desc">Six unique media kit designs. Click any template to view it in full detail.</p>
+      <p class="section-desc">Twelve unique media kit designs. Click any template to view it in full detail.</p>
     </div>
 
     <div class="template-grid">
@@ -625,6 +625,96 @@
           <div class="template-desc">Industry-standard media kit format with comprehensive brand guidelines.</div>
         </div>
       </div>
+
+      <!-- Template 7 -->
+      <div class="template-card" onclick="openModal(6)">
+        <div class="template-preview">
+          <iframe src="templates/template-7.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">07</div>
+          <div class="template-name">Brutalist</div>
+          <div class="template-desc">Raw, bold design with stark typography and high-contrast grid layouts.</div>
+        </div>
+      </div>
+
+      <!-- Template 8 -->
+      <div class="template-card" onclick="openModal(7)">
+        <div class="template-preview">
+          <iframe src="templates/template-8.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">08</div>
+          <div class="template-name">Ethereal</div>
+          <div class="template-desc">Soft, atmospheric design with dreamy gradients and elegant serif typography.</div>
+        </div>
+      </div>
+
+      <!-- Template 9 -->
+      <div class="template-card" onclick="openModal(8)">
+        <div class="template-preview">
+          <iframe src="templates/template-9.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">09</div>
+          <div class="template-name">Gothic</div>
+          <div class="template-desc">Medieval-inspired elegance with ornamental details and rich gold accents.</div>
+        </div>
+      </div>
+
+      <!-- Template 10 -->
+      <div class="template-card" onclick="openModal(9)">
+        <div class="template-preview">
+          <iframe src="templates/template-10.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">10</div>
+          <div class="template-name">Industrial</div>
+          <div class="template-desc">Technical aesthetic with grid overlays, monospace fonts, and mechanical precision.</div>
+        </div>
+      </div>
+
+      <!-- Template 11 -->
+      <div class="template-card" onclick="openModal(10)">
+        <div class="template-preview">
+          <iframe src="templates/template-11.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">11</div>
+          <div class="template-name">Liquid Chrome</div>
+          <div class="template-desc">Fluid, modern design with organic shapes and animated chrome effects.</div>
+        </div>
+      </div>
+
+      <!-- Template 12 -->
+      <div class="template-card" onclick="openModal(11)">
+        <div class="template-preview">
+          <iframe src="templates/template-12.html" loading="lazy"></iframe>
+          <div class="template-preview-overlay">
+            <button class="view-btn">View Full</button>
+          </div>
+        </div>
+        <div class="template-info">
+          <div class="template-number">12</div>
+          <div class="template-name">Noir</div>
+          <div class="template-desc">Film noir-inspired with dramatic shadows, crimson accents, and cinematic typography.</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -638,7 +728,7 @@
             <path d="M15 18l-6-6 6-6"/>
           </svg>
         </button>
-        <span class="modal-counter" id="modal-counter">1 / 6</span>
+        <span class="modal-counter" id="modal-counter">1 / 12</span>
         <button class="modal-nav-btn" onclick="nextTemplate()" id="next-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M9 18l6-6-6-6"/>
@@ -664,7 +754,13 @@
       { name: 'Brand Board', src: 'templates/template-3.html' },
       { name: 'Editorial Chrome', src: 'templates/template-4.html' },
       { name: 'Cinematic', src: 'templates/template-5.html' },
-      { name: 'Professional', src: 'templates/template-6.html' }
+      { name: 'Professional', src: 'templates/template-6.html' },
+      { name: 'Brutalist', src: 'templates/template-7.html' },
+      { name: 'Ethereal', src: 'templates/template-8.html' },
+      { name: 'Gothic', src: 'templates/template-9.html' },
+      { name: 'Industrial', src: 'templates/template-10.html' },
+      { name: 'Liquid Chrome', src: 'templates/template-11.html' },
+      { name: 'Noir', src: 'templates/template-12.html' }
     ];
 
     let currentIndex = 0;

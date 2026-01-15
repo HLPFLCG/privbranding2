@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIV — Industrial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0c0c;
+      --surface: #161616;
+      --panel: #1a1a1a;
+      --border: #2a2a2a;
+      --accent: #ff4400;
+      --accent-dim: #cc3300;
+      --text: #e0e0e0;
+      --text-muted: #808080;
+      --text-dim: #505050;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 400;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* Grid lines background */
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      padding: 60px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+
+    .hero-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(6rem, 18vw, 14rem);
+      font-weight: 600;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title span {
+      display: block;
+      color: var(--accent);
+    }
+
+    .hero-tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      max-width: 400px;
+      border-left: 3px solid var(--accent);
+      padding-left: 16px;
+    }
+
+    .hero-meta {
+      position: absolute;
+      bottom: 60px;
+      right: 60px;
+      text-align: right;
+    }
+
+    .hero-meta-item {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .hero-meta-value {
+      color: var(--text-muted);
+    }
+
+    /* Section */
+    section {
+      padding: 80px 0;
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .section-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 4rem;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .section-info {
+      padding-top: 8px;
+    }
+
+    .section-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .stat {
+      background: var(--panel);
+      padding: 32px;
+    }
+
+    .stat-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-bar {
+      height: 4px;
+      background: var(--border);
+      margin-top: 16px;
+    }
+
+    .stat-bar-fill {
+      height: 100%;
+      background: var(--accent);
+    }
+
+    /* Bio */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .bio-text {
+      background: var(--panel);
+      padding: 40px;
+    }
+
+    .bio-text p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .bio-details {
+      background: var(--surface);
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+      gap: 2px;
+    }
+
+    .detail-cell {
+      background: var(--panel);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .detail-label {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .detail-value {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    /* Tracks */
+    .tracks-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .tracks-table th {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-align: left;
+      padding: 16px;
+      background: var(--panel);
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .tracks-table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .tracks-table tr:hover {
+      background: var(--panel);
+    }
+
+    .track-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--accent);
+      width: 60px;
+    }
+
+    .track-title {
+      font-size: 0.95rem;
+    }
+
+    .track-streams {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .track-bar {
+      width: 100px;
+    }
+
+    .track-bar-fill {
+      height: 4px;
+      background: var(--accent);
+    }
+
+    /* Logo Grid */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .logo-card {
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .logo-card.dark {
+      background: var(--bg);
+    }
+
+    .logo-card.light {
+      background: #e0e0e0;
+    }
+
+    .logo-card .logo-text {
+      font-family: 'Oswald', sans-serif;
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .logo-card.dark .logo-text {
+      color: var(--text);
+    }
+
+    .logo-card.light .logo-text {
+      color: var(--bg);
+    }
+
+    .logo-card.accent .logo-text {
+      color: var(--accent);
+    }
+
+    .logo-card-label {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .logo-card.light .logo-card-label {
+      color: #808080;
+    }
+
+    /* Colors */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .color-swatch {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+    }
+
+    .color-swatch.black { background: var(--bg); }
+    .color-swatch.white { background: #e0e0e0; color: var(--bg); }
+    .color-swatch.gray { background: #505050; }
+    .color-swatch.accent { background: var(--accent); color: var(--bg); }
+
+    .color-name {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .color-hex {
+      font-size: 0.65rem;
+      opacity: 0.7;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .contact-card {
+      background: var(--panel);
+      padding: 32px;
+    }
+
+    .contact-label {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .contact-link {
+      font-size: 0.9rem;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    footer span {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    footer .accent {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+
+      .stats-grid,
+      .bio-grid,
+      .logo-grid,
+      .color-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tracks-table .track-bar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span>▶</span> MEDIA KIT 2026
+    </div>
+    <h1 class="hero-title">
+      <span>PRIV</span>
+    </h1>
+    <p class="hero-tagline">MINDS MEET IN OBLIVION — A journey into the dark realm where medieval echoes meet nature's untamed beauty.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">STATUS: <span class="hero-meta-value">ACTIVE</span></div>
+      <div class="hero-meta-item">LABEL: <span class="hero-meta-value">HLPFL</span></div>
+      <div class="hero-meta-item">LOCATION: <span class="hero-meta-value">GRAND RAPIDS, MI</span></div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">01</div>
+        <div class="section-info">
+          <div class="section-label">Performance Data</div>
+          <h2 class="section-title">Metrics</h2>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-label">Total Streams</div>
+          <div class="stat-value">290K</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width: 85%"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Monthly Listeners</div>
+          <div class="stat-value">23K</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width: 65%"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Followers</div>
+          <div class="stat-value">1.8K</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width: 45%"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Releases</div>
+          <div class="stat-value">15</div>
+          <div class="stat-bar"><div class="stat-bar-fill" style="width: 30%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bio -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <div class="section-info">
+          <div class="section-label">Artist Profile</div>
+          <h2 class="section-title">About</h2>
+        </div>
+      </div>
+      <div class="bio-grid">
+        <div class="bio-text">
+          <p>PRIV's sound is a journey into the dark, nightmarish realm of Oblivion—a place where medieval echoes meet nature's untamed, ominous beauty.</p>
+          <p>Drawing influence from the daedric landscapes of ancient lore, PRIV channels an otherworldly tradition of storytelling. Oblivion is where nightmarish creatures dwell, and where hopes and dreams go to die.</p>
+        </div>
+        <div class="bio-details">
+          <div class="detail-cell">
+            <div class="detail-label">Genre</div>
+            <div class="detail-value">Dark / Medieval / Nature</div>
+          </div>
+          <div class="detail-cell">
+            <div class="detail-label">Location</div>
+            <div class="detail-value">Grand Rapids, MI</div>
+          </div>
+          <div class="detail-cell">
+            <div class="detail-label">Label</div>
+            <div class="detail-value">HLPFL</div>
+          </div>
+          <div class="detail-cell">
+            <div class="detail-label">Management</div>
+            <div class="detail-value">HLPFL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tracks -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">03</div>
+        <div class="section-info">
+          <div class="section-label">Discography</div>
+          <h2 class="section-title">Top Tracks</h2>
+        </div>
+      </div>
+      <table class="tracks-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Track</th>
+            <th>Streams</th>
+            <th>Performance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="track-num">01</td>
+            <td class="track-title">growing up</td>
+            <td class="track-streams">120,975</td>
+            <td class="track-bar"><div class="track-bar-fill" style="width: 100%"></div></td>
+          </tr>
+          <tr>
+            <td class="track-num">02</td>
+            <td class="track-title">libra</td>
+            <td class="track-streams">49,148</td>
+            <td class="track-bar"><div class="track-bar-fill" style="width: 40%"></div></td>
+          </tr>
+          <tr>
+            <td class="track-num">03</td>
+            <td class="track-title">fiction</td>
+            <td class="track-streams">22,579</td>
+            <td class="track-bar"><div class="track-bar-fill" style="width: 19%"></div></td>
+          </tr>
+          <tr>
+            <td class="track-num">04</td>
+            <td class="track-title">memories</td>
+            <td class="track-streams">19,535</td>
+            <td class="track-bar"><div class="track-bar-fill" style="width: 16%"></div></td>
+          </tr>
+          <tr>
+            <td class="track-num">05</td>
+            <td class="track-title">bones</td>
+            <td class="track-streams">15,519</td>
+            <td class="track-bar"><div class="track-bar-fill" style="width: 13%"></div></td>
+          </tr>
+          <tr>
+            <td class="track-num">06</td>
+            <td class="track-title">jaundice</td>
+            <td class="track-streams">10,546</td>
+            <td class="track-bar"><div class="track-bar-fill" style="width: 9%"></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Logo -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">04</div>
+        <div class="section-info">
+          <div class="section-label">Brand Assets</div>
+          <h2 class="section-title">Logo System</h2>
+        </div>
+      </div>
+      <div class="logo-grid">
+        <div class="logo-card dark">
+          <span class="logo-text">PRIV</span>
+          <span class="logo-card-label">White / Dark</span>
+        </div>
+        <div class="logo-card light">
+          <span class="logo-text">PRIV</span>
+          <span class="logo-card-label">Black / Light</span>
+        </div>
+        <div class="logo-card dark accent">
+          <span class="logo-text">PRIV</span>
+          <span class="logo-card-label">Accent / Dark</span>
+        </div>
+        <div class="logo-card dark">
+          <span class="logo-text" style="font-size: 4rem;">P</span>
+          <span class="logo-card-label">Icon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colors -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">05</div>
+        <div class="section-info">
+          <div class="section-label">Visual System</div>
+          <h2 class="section-title">Color Palette</h2>
+        </div>
+      </div>
+      <div class="color-grid">
+        <div class="color-swatch black">
+          <div class="color-name">Black</div>
+          <div class="color-hex">#0C0C0C</div>
+        </div>
+        <div class="color-swatch white">
+          <div class="color-name">White</div>
+          <div class="color-hex">#E0E0E0</div>
+        </div>
+        <div class="color-swatch gray">
+          <div class="color-name">Gray</div>
+          <div class="color-hex">#505050</div>
+        </div>
+        <div class="color-swatch accent">
+          <div class="color-name">Accent</div>
+          <div class="color-hex">#FF4400</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="section-num">06</div>
+        <div class="section-info">
+          <div class="section-label">Network</div>
+          <h2 class="section-title">Connect</h2>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-label">Spotify</div>
+          <a href="https://open.spotify.com/artist/0jIqPF7laDAaZmSeoSzLlt" class="contact-link">PRIV</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">Instagram</div>
+          <a href="https://instagram.com/whereispriv" class="contact-link">@whereispriv</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">Links</div>
+          <a href="https://linktr.ee/priv" class="contact-link">linktr.ee/priv</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">Management</div>
+          <a href="https://hlpfl.org" class="contact-link">HLPFL</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 PRIV</span>
+    <span class="accent">HLPFL</span>
+  </footer>
+</body>
+</html>
