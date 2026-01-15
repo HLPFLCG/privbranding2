@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIV — Gothic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0908;
+      --surface: #12110f;
+      --border: #2a2520;
+      --border-light: #3d362e;
+      --gold: #b8996f;
+      --gold-light: #d4bc8e;
+      --gold-dark: #8a7354;
+      --text: #e8e4dc;
+      --text-muted: #9a9488;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* Ornamental borders */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      color: var(--gold-dark);
+    }
+
+    .ornament-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%);
+    }
+
+    .ornament-symbol {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(184, 153, 111, 0.03) 0%, transparent 60%),
+        var(--bg);
+      position: relative;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: 60px;
+      right: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+    }
+
+    .hero::before { top: 60px; }
+    .hero::after { bottom: 60px; }
+
+    .hero-logo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(4rem, 12vw, 8rem);
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-shadow: 0 0 60px rgba(184, 153, 111, 0.2);
+      margin-bottom: 24px;
+    }
+
+    .hero-tagline {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+    }
+
+    .hero-year {
+      margin-top: 60px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      color: var(--gold-dark);
+    }
+
+    /* Sections */
+    section {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 30px;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 20%;
+      right: 20%;
+      height: 1px;
+      background: var(--gold-dark);
+    }
+
+    .stat-value {
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Bio */
+    .bio-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .bio-content p {
+      font-size: 1.15rem;
+      line-height: 2;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      text-align: justify;
+    }
+
+    .bio-content p:first-of-type::first-letter {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 4.5rem;
+      float: left;
+      line-height: 0.75;
+      padding-right: 16px;
+      color: var(--gold);
+    }
+
+    .details-row {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .detail {
+      text-align: center;
+    }
+
+    .detail-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 8px;
+    }
+
+    .detail-value {
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    /* Tracks */
+    .tracks-list {
+      max-width: 700px;
+      margin: 0 auto;
+      border: 1px solid var(--border);
+    }
+
+    .track {
+      display: grid;
+      grid-template-columns: 60px 1fr 100px;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+    }
+
+    .track:last-child {
+      border-bottom: none;
+    }
+
+    .track-num {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--gold-dark);
+    }
+
+    .track-title {
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--text);
+    }
+
+    .track-streams {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    /* Logo Grid */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .logo-card {
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .logo-card::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid var(--border);
+      pointer-events: none;
+    }
+
+    .logo-card.dark {
+      background: var(--bg);
+    }
+
+    .logo-card.light {
+      background: linear-gradient(135deg, #f5f0e8 0%, #e8e0d4 100%);
+    }
+
+    .logo-card .logo-text {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2rem;
+      letter-spacing: 0.2em;
+    }
+
+    .logo-card.dark .logo-text {
+      color: var(--gold);
+    }
+
+    .logo-card.light .logo-text {
+      color: #2a2520;
+    }
+
+    .logo-card-label {
+      position: absolute;
+      bottom: 16px;
+      right: 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .logo-card.light .logo-card-label {
+      color: #8a7354;
+    }
+
+    /* Colors */
+    .color-row {
+      display: flex;
+      gap: 24px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .color-swatch {
+      flex: 1;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .color-swatch::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid var(--border);
+      pointer-events: none;
+    }
+
+    .color-swatch.void {
+      background: var(--bg);
+    }
+
+    .color-swatch.parchment {
+      background: #f5f0e8;
+    }
+
+    .color-swatch.gold {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+    }
+
+    .color-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .color-swatch.parchment .color-name,
+    .color-swatch.gold .color-name {
+      color: #2a2520;
+    }
+
+    .color-hex {
+      font-size: 0.7rem;
+      opacity: 0.7;
+    }
+
+    .color-swatch.parchment .color-hex,
+    .color-swatch.gold .color-hex {
+      color: #2a2520;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 30px 20px;
+      border: 1px solid var(--border);
+    }
+
+    .contact-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 12px;
+    }
+
+    .contact-link {
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--gold);
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--gold-dark);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 24px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .details-row {
+        flex-wrap: wrap;
+        gap: 30px;
+      }
+
+      .logo-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .color-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero -->
+  <section class="hero">
+    <h1 class="hero-logo">PRIV</h1>
+    <p class="hero-tagline">Minds Meet in Oblivion</p>
+    <div class="hero-year">ANNO DOMINI MMXXVI</div>
+  </section>
+
+  <!-- Stats -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="ornament">
+          <div class="ornament-line"></div>
+          <span class="ornament-symbol">✦</span>
+          <div class="ornament-line"></div>
+        </div>
+        <h2 class="section-title">Numbers</h2>
+        <p class="section-subtitle">A chronicle of reach</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-value">290K</div>
+          <div class="stat-label">Streams</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">23K</div>
+          <div class="stat-label">Monthly</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">1.8K</div>
+          <div class="stat-label">Followers</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">15</div>
+          <div class="stat-label">Releases</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bio -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="ornament">
+          <div class="ornament-line"></div>
+          <span class="ornament-symbol">✦</span>
+          <div class="ornament-line"></div>
+        </div>
+        <h2 class="section-title">Philosophy</h2>
+        <p class="section-subtitle">The nature of the sound</p>
+      </div>
+      <div class="bio-content">
+        <p>PRIV's sound is a journey into the dark, nightmarish realm of Oblivion—a place where medieval echoes meet nature's untamed, ominous beauty. Drawing influence from the daedric landscapes of ancient lore, channeling an otherworldly tradition of storytelling where vocals and melodies intertwine.</p>
+        <p>Oblivion is where nightmarish creatures dwell, and where hopes and dreams descend to perish. That ancient energy lives in every composition, echoing through the halls of forgotten realms.</p>
+      </div>
+      <div class="details-row">
+        <div class="detail">
+          <div class="detail-label">Genre</div>
+          <div class="detail-value">Dark / Medieval / Nature</div>
+        </div>
+        <div class="detail">
+          <div class="detail-label">Origin</div>
+          <div class="detail-value">Grand Rapids, Michigan</div>
+        </div>
+        <div class="detail">
+          <div class="detail-label">House</div>
+          <div class="detail-value">HLPFL</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tracks -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="ornament">
+          <div class="ornament-line"></div>
+          <span class="ornament-symbol">✦</span>
+          <div class="ornament-line"></div>
+        </div>
+        <h2 class="section-title">Catalog</h2>
+        <p class="section-subtitle">Works most revered</p>
+      </div>
+      <div class="tracks-list">
+        <div class="track">
+          <span class="track-num">I.</span>
+          <span class="track-title">Growing Up</span>
+          <span class="track-streams">120,975</span>
+        </div>
+        <div class="track">
+          <span class="track-num">II.</span>
+          <span class="track-title">Libra</span>
+          <span class="track-streams">49,148</span>
+        </div>
+        <div class="track">
+          <span class="track-num">III.</span>
+          <span class="track-title">Fiction</span>
+          <span class="track-streams">22,579</span>
+        </div>
+        <div class="track">
+          <span class="track-num">IV.</span>
+          <span class="track-title">Memories</span>
+          <span class="track-streams">19,535</span>
+        </div>
+        <div class="track">
+          <span class="track-num">V.</span>
+          <span class="track-title">Bones</span>
+          <span class="track-streams">15,519</span>
+        </div>
+        <div class="track">
+          <span class="track-num">VI.</span>
+          <span class="track-title">Jaundice</span>
+          <span class="track-streams">10,546</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logo -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="ornament">
+          <div class="ornament-line"></div>
+          <span class="ornament-symbol">✦</span>
+          <div class="ornament-line"></div>
+        </div>
+        <h2 class="section-title">Heraldry</h2>
+        <p class="section-subtitle">The mark of identity</p>
+      </div>
+      <div class="logo-grid">
+        <div class="logo-card dark">
+          <span class="logo-text">PRIV</span>
+          <span class="logo-card-label">Gold on Void</span>
+        </div>
+        <div class="logo-card light">
+          <span class="logo-text">PRIV</span>
+          <span class="logo-card-label">Dark on Parchment</span>
+        </div>
+        <div class="logo-card dark">
+          <span class="logo-text" style="font-size: 3rem;">P</span>
+          <span class="logo-card-label">Seal Dark</span>
+        </div>
+        <div class="logo-card light">
+          <span class="logo-text" style="font-size: 3rem;">P</span>
+          <span class="logo-card-label">Seal Light</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colors -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="ornament">
+          <div class="ornament-line"></div>
+          <span class="ornament-symbol">✦</span>
+          <div class="ornament-line"></div>
+        </div>
+        <h2 class="section-title">Palette</h2>
+        <p class="section-subtitle">Colors of the realm</p>
+      </div>
+      <div class="color-row">
+        <div class="color-swatch void">
+          <div class="color-name">Void</div>
+          <div class="color-hex">#0A0908</div>
+        </div>
+        <div class="color-swatch parchment">
+          <div class="color-name">Parchment</div>
+          <div class="color-hex">#F5F0E8</div>
+        </div>
+        <div class="color-swatch gold">
+          <div class="color-name">Gold</div>
+          <div class="color-hex">#B8996F</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <div class="ornament">
+          <div class="ornament-line"></div>
+          <span class="ornament-symbol">✦</span>
+          <div class="ornament-line"></div>
+        </div>
+        <h2 class="section-title">Summon</h2>
+        <p class="section-subtitle">Paths to connection</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-label">Spotify</div>
+          <a href="https://open.spotify.com/artist/0jIqPF7laDAaZmSeoSzLlt" class="contact-link">PRIV</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">Instagram</div>
+          <a href="https://instagram.com/whereispriv" class="contact-link">@whereispriv</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">Links</div>
+          <a href="https://linktr.ee/priv" class="contact-link">linktr.ee/priv</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label">House</div>
+          <a href="https://hlpfl.org" class="contact-link">HLPFL</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="ornament" style="margin-bottom: 30px;">
+      <div class="ornament-line"></div>
+      <span class="ornament-symbol">✦</span>
+      <div class="ornament-line"></div>
+    </div>
+    <p>© MMXXVI PRIV · HLPFL</p>
+  </footer>
+</body>
+</html>
