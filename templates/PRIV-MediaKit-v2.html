@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIV — Media Kit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --void: #000000;
+      --deep: #080808;
+      --dark: #0F0F0F;
+      --surface: #151515;
+      --elevated: #1A1A1A;
+      --border: #222222;
+      --muted: #3A3A3A;
+      --subtle: #555555;
+      --steel: #888888;
+      --silver: #AAAAAA;
+      --light: #CCCCCC;
+      --bright: #E8E8E8;
+      --white: #FFFFFF;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--void);
+      color: var(--light);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    
+    /* Subtle noise texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 10000;
+    }
+    
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+    
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    
+    section {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    /* Typography */
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: 3rem;
+    }
+    
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+      color: var(--bright);
+    }
+    
+    p { 
+      color: var(--silver); 
+      max-width: 560px;
+      font-size: 0.95rem;
+    }
+    
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: 
+        radial-gradient(ellipse 100% 60% at 50% 40%, var(--surface) 0%, transparent 60%),
+        var(--void);
+      border-bottom: none;
+      position: relative;
+    }
+    
+    .hero-logo {
+      width: min(420px, 75vw);
+      margin-bottom: 2rem;
+    }
+    
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--steel);
+      letter-spacing: 0.1em;
+      margin-bottom: 4rem;
+    }
+    
+    .hero-meta {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    
+    .scroll-hint {
+      position: absolute;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(180deg, var(--muted) 0%, transparent 100%);
+    }
+    
+    /* Stats Bar */
+    .stats-bar {
+      background: var(--deep);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .stat {
+      padding: 48px 32px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    
+    .stat:last-child { border-right: none; }
+    
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--bright);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    
+    .stat-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--subtle);
+    }
+    
+    /* Bio Section */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 80px;
+      margin-top: 40px;
+    }
+    
+    .bio-text p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+    
+    .bio-text p:first-of-type::first-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      float: left;
+      line-height: 0.85;
+      padding-right: 12px;
+      color: var(--bright);
+    }
+    
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+    }
+    
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .info-row:last-child { border-bottom: none; }
+    
+    .info-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--subtle);
+    }
+    
+    .info-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--light);
+    }
+    
+    /* Tracks */
+    .tracks-list { margin-top: 40px; }
+    
+    .track {
+      display: grid;
+      grid-template-columns: 60px 1fr 100px;
+      gap: 32px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+    }
+    
+    .track:hover {
+      background: linear-gradient(90deg, transparent, var(--surface), transparent);
+    }
+    
+    .track-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--muted);
+    }
+    
+    .track-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--light);
+    }
+    
+    .track-streams {
+      font-size: 0.8rem;
+      color: var(--subtle);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    
+    /* Logo Section */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    
+    .logo-card {
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border: 1px solid var(--border);
+      padding: 32px;
+    }
+    
+    .logo-card.dark {
+      background: var(--void);
+    }
+    
+    .logo-card.light {
+      background: linear-gradient(135deg, #F5F5F5 0%, #E0E0E0 100%);
+    }
+    
+    .logo-card.chrome-bg {
+      background: linear-gradient(180deg, var(--surface) 0%, var(--void) 100%);
+    }
+    
+    .logo-card svg {
+      width: 70%;
+      height: auto;
+    }
+    
+    .logo-card-label {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    
+    .logo-card.light .logo-card-label {
+      color: var(--subtle);
+    }
+    
+    /* Colors */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 40px;
+      border: 1px solid var(--border);
+    }
+    
+    .color-swatch {
+      aspect-ratio: 1.2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      border-right: 1px solid var(--border);
+    }
+    
+    .color-swatch:last-child { border-right: none; }
+    
+    .color-swatch.black { background: var(--void); }
+    .color-swatch.white { background: var(--white); }
+    .color-swatch.chrome {
+      background: linear-gradient(180deg, 
+        #FFFFFF 0%, 
+        #D0D0D0 15%,
+        #808080 40%,
+        #404040 55%,
+        #606060 70%,
+        #909090 85%,
+        #B0B0B0 100%
+      );
+    }
+    
+    .color-name {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    
+    .color-hex {
+      font-size: 0.7rem;
+      font-family: monospace;
+      opacity: 0.6;
+    }
+    
+    .color-swatch.white .color-name,
+    .color-swatch.white .color-hex,
+    .color-swatch.chrome .color-name,
+    .color-swatch.chrome .color-hex {
+      color: var(--void);
+    }
+    
+    /* Typography Section */
+    .type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 40px;
+    }
+    
+    .type-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+    }
+    
+    .type-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: 20px;
+    }
+    
+    .type-sample-display {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--bright);
+      margin-bottom: 16px;
+    }
+    
+    .type-sample-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--silver);
+    }
+    
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 32px;
+      transition: border-color 0.2s ease;
+    }
+    
+    .contact-card:hover {
+      border-color: var(--muted);
+    }
+    
+    .contact-card h4 {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: 16px;
+    }
+    
+    .contact-card a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--light);
+      text-decoration: none;
+    }
+    
+    .contact-card a:hover {
+      color: var(--white);
+    }
+    
+    /* Five Pillars */
+    .pillars {
+      display: flex;
+      gap: 48px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .pillar {
+      text-align: center;
+    }
+    
+    .pillar-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--light);
+      margin-bottom: 4px;
+    }
+    
+    .pillar-desc {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--subtle);
+    }
+    
+    /* Footer */
+    footer {
+      padding: 60px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    
+    footer p {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 auto;
+    }
+    
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container { padding: 0 24px; }
+      section { padding: 60px 0; }
+      .bio-grid, .type-grid { grid-template-columns: 1fr; gap: 40px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat { border-bottom: 1px solid var(--border); }
+      .stat:nth-child(2) { border-right: none; }
+      .logo-grid, .color-grid, .contact-grid { grid-template-columns: 1fr; }
+      .color-swatch { border-right: none; border-bottom: 1px solid var(--border); }
+      .color-swatch:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <svg class="hero-logo" viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hero-chrome" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#FFFFFF"/>
+          <stop offset="12%" style="stop-color:#E8E8E8"/>
+          <stop offset="28%" style="stop-color:#B8B8B8"/>
+          <stop offset="42%" style="stop-color:#686868"/>
+          <stop offset="55%" style="stop-color:#484848"/>
+          <stop offset="68%" style="stop-color:#787878"/>
+          <stop offset="82%" style="stop-color:#A8A8A8"/>
+          <stop offset="100%" style="stop-color:#C8C8C8"/>
+        </linearGradient>
+      </defs>
+      <g transform="translate(0, 5)">
+        <path d="M0 0 L0 80 L18 80 L18 52 L40 52 C62 52 72 40 72 26 C72 12 62 0 40 0 Z M18 16 L38 16 C50 16 54 20 54 26 C54 32 50 36 38 36 L18 36 Z" fill="url(#hero-chrome)"/>
+        <path d="M88 0 L88 80 L106 80 L106 52 L120 52 L148 80 L172 80 L140 48 C154 44 162 34 162 26 C162 12 152 0 130 0 Z M106 16 L128 16 C140 16 144 20 144 26 C144 32 140 36 128 36 L106 36 Z" fill="url(#hero-chrome)"/>
+        <path d="M186 0 L186 80 L204 80 L204 0 Z" fill="url(#hero-chrome)"/>
+        <path d="M183 -12 L207 -12 L207 -4 L183 -4 Z" fill="url(#hero-chrome)"/>
+        <path d="M222 0 L254 80 L272 80 L304 0 L284 0 L263 58 L242 0 Z" fill="url(#hero-chrome)"/>
+      </g>
+    </svg>
+    <p class="tagline">Minds Meet in Oblivion*+</p>
+    <p class="hero-meta">Media Kit · 2026</p>
+    <div class="scroll-hint"></div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-bar">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-value">290K+</div>
+        <div class="stat-label">Total Streams</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">23K</div>
+        <div class="stat-label">Monthly Listeners</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">1.8K</div>
+        <div class="stat-label">Followers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">15</div>
+        <div class="stat-label">Releases</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bio -->
+  <section>
+    <div class="container">
+      <h1>Brand Philosophy</h1>
+      <div class="bio-grid">
+        <div class="bio-text">
+          <p>PRIV's sound is a journey into the dark, nightmarish realm of Oblivion—a place where medieval echoes meet nature's untamed, ominous beauty. Drawing influence from the daedric landscapes of ancient lore, PRIV channels an otherworldly tradition of storytelling in how vocals and melodies intertwine—feeling this introspective longing with often vulnerable intentions.</p>
+          <p>Oblivion is a place where nightmarish creatures live... and where people's hopes and dreams go to die. That's the kind of energy brought to every track—the feeling of the dark and near, of melodic landscapes and potent musical immensities, with the nature of interconnected feeling of hopes and dreams lost in a desolate, forgotten world.</p>
+          
+          <h2 style="margin-top: 48px;">Five Pillars</h2>
+          <div class="pillars">
+            <div class="pillar">
+              <div class="pillar-name">Nightmare</div>
+              <div class="pillar-desc">Dark, Ominous</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-name">Oblivion</div>
+              <div class="pillar-desc">Where Dreams Die</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-name">Medieval</div>
+              <div class="pillar-desc">Ancient Energy</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-name">Nature</div>
+              <div class="pillar-desc">Untamed, Raw</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-name">Grass</div>
+              <div class="pillar-desc">Earthen, Grounded</div>
+            </div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-row">
+            <span class="info-label">Genre</span>
+            <span class="info-value">Dark / Medieval / Nature</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Location</span>
+            <span class="info-value">Grand Rapids, MI</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Label</span>
+            <span class="info-value">HLPFL</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Management</span>
+            <span class="info-value">HLPFL</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Spotify</span>
+            <span class="info-value">PRIV</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Instagram</span>
+            <span class="info-value">@whereispriv</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tracks -->
+  <section>
+    <div class="container">
+      <h1>Catalog</h1>
+      <h2>Top Tracks</h2>
+      <div class="tracks-list">
+        <div class="track">
+          <span class="track-num">01</span>
+          <span class="track-title">growing up</span>
+          <span class="track-streams">120,975</span>
+        </div>
+        <div class="track">
+          <span class="track-num">02</span>
+          <span class="track-title">libra</span>
+          <span class="track-streams">49,148</span>
+        </div>
+        <div class="track">
+          <span class="track-num">03</span>
+          <span class="track-title">fiction</span>
+          <span class="track-streams">22,579</span>
+        </div>
+        <div class="track">
+          <span class="track-num">04</span>
+          <span class="track-title">memories</span>
+          <span class="track-streams">19,535</span>
+        </div>
+        <div class="track">
+          <span class="track-num">05</span>
+          <span class="track-title">bones</span>
+          <span class="track-streams">15,519</span>
+        </div>
+        <div class="track">
+          <span class="track-num">06</span>
+          <span class="track-title">jaundice</span>
+          <span class="track-streams">10,546</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logo System -->
+  <section>
+    <div class="container">
+      <h1>Logo & Font Pack</h1>
+      <h2>Primary Wordmark</h2>
+      <p>Heavy letterforms with signature accent mark above the I. Available in Black, White, and Chrome treatments.</p>
+      
+      <div class="logo-grid">
+        <div class="logo-card dark">
+          <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(0, 5)">
+              <path d="M0 0 L0 80 L18 80 L18 52 L40 52 C62 52 72 40 72 26 C72 12 62 0 40 0 Z M18 16 L38 16 C50 16 54 20 54 26 C54 32 50 36 38 36 L18 36 Z" fill="#FFFFFF"/>
+              <path d="M88 0 L88 80 L106 80 L106 52 L120 52 L148 80 L172 80 L140 48 C154 44 162 34 162 26 C162 12 152 0 130 0 Z M106 16 L128 16 C140 16 144 20 144 26 C144 32 140 36 128 36 L106 36 Z" fill="#FFFFFF"/>
+              <path d="M186 0 L186 80 L204 80 L204 0 Z" fill="#FFFFFF"/>
+              <path d="M183 -12 L207 -12 L207 -4 L183 -4 Z" fill="#FFFFFF"/>
+              <path d="M222 0 L254 80 L272 80 L304 0 L284 0 L263 58 L242 0 Z" fill="#FFFFFF"/>
+            </g>
+          </svg>
+          <span class="logo-card-label">White</span>
+        </div>
+        
+        <div class="logo-card light">
+          <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(0, 5)">
+              <path d="M0 0 L0 80 L18 80 L18 52 L40 52 C62 52 72 40 72 26 C72 12 62 0 40 0 Z M18 16 L38 16 C50 16 54 20 54 26 C54 32 50 36 38 36 L18 36 Z" fill="#000000"/>
+              <path d="M88 0 L88 80 L106 80 L106 52 L120 52 L148 80 L172 80 L140 48 C154 44 162 34 162 26 C162 12 152 0 130 0 Z M106 16 L128 16 C140 16 144 20 144 26 C144 32 140 36 128 36 L106 36 Z" fill="#000000"/>
+              <path d="M186 0 L186 80 L204 80 L204 0 Z" fill="#000000"/>
+              <path d="M183 -12 L207 -12 L207 -4 L183 -4 Z" fill="#000000"/>
+              <path d="M222 0 L254 80 L272 80 L304 0 L284 0 L263 58 L242 0 Z" fill="#000000"/>
+            </g>
+          </svg>
+          <span class="logo-card-label">Black</span>
+        </div>
+        
+        <div class="logo-card chrome-bg">
+          <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="card-chrome" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#FFFFFF"/>
+                <stop offset="12%" style="stop-color:#E8E8E8"/>
+                <stop offset="28%" style="stop-color:#B8B8B8"/>
+                <stop offset="42%" style="stop-color:#686868"/>
+                <stop offset="55%" style="stop-color:#484848"/>
+                <stop offset="68%" style="stop-color:#787878"/>
+                <stop offset="82%" style="stop-color:#A8A8A8"/>
+                <stop offset="100%" style="stop-color:#C8C8C8"/>
+              </linearGradient>
+            </defs>
+            <g transform="translate(0, 5)">
+              <path d="M0 0 L0 80 L18 80 L18 52 L40 52 C62 52 72 40 72 26 C72 12 62 0 40 0 Z M18 16 L38 16 C50 16 54 20 54 26 C54 32 50 36 38 36 L18 36 Z" fill="url(#card-chrome)"/>
+              <path d="M88 0 L88 80 L106 80 L106 52 L120 52 L148 80 L172 80 L140 48 C154 44 162 34 162 26 C162 12 152 0 130 0 Z M106 16 L128 16 C140 16 144 20 144 26 C144 32 140 36 128 36 L106 36 Z" fill="url(#card-chrome)"/>
+              <path d="M186 0 L186 80 L204 80 L204 0 Z" fill="url(#card-chrome)"/>
+              <path d="M183 -12 L207 -12 L207 -4 L183 -4 Z" fill="url(#card-chrome)"/>
+              <path d="M222 0 L254 80 L272 80 L304 0 L284 0 L263 58 L242 0 Z" fill="url(#card-chrome)"/>
+            </g>
+          </svg>
+          <span class="logo-card-label">Chrome</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colors -->
+  <section>
+    <div class="container">
+      <h1>Color System</h1>
+      <h2>The Palette</h2>
+      <p>Black, White, and Chrome. Ordered by visual weight—darkness grounds, light illuminates, chrome bridges.</p>
+      
+      <div class="color-grid">
+        <div class="color-swatch black">
+          <div class="color-name">Black</div>
+          <div class="color-hex">#000000</div>
+        </div>
+        <div class="color-swatch white">
+          <div class="color-name">White</div>
+          <div class="color-hex">#FFFFFF</div>
+        </div>
+        <div class="color-swatch chrome">
+          <div class="color-name">Chrome</div>
+          <div class="color-hex">Gradient</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typography -->
+  <section>
+    <div class="container">
+      <h1>Typography</h1>
+      <h2>Type System</h2>
+      <div class="type-grid">
+        <div class="type-card">
+          <div class="type-label">Display · Headlines</div>
+          <div class="type-sample-display">Cormorant Garamond</div>
+          <p style="color: var(--subtle); font-size: 0.8rem; margin-top: 12px;">Clean serif for titles, body text, on/for headings. Light weight preferred.</p>
+        </div>
+        <div class="type-card">
+          <div class="type-label">Body · Interface</div>
+          <div class="type-sample-body">Inter maintains clarity and modern readability while serving as quiet counterpoint to serif elegance.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section>
+    <div class="container">
+      <h1>Connect</h1>
+      <h2>Links</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h4>Streaming</h4>
+          <a href="https://open.spotify.com/artist/0jIqPF7laDAaZmSeoSzLlt">Spotify</a>
+        </div>
+        <div class="contact-card">
+          <h4>Social</h4>
+          <a href="https://instagram.com/whereispriv">@whereispriv</a>
+        </div>
+        <div class="contact-card">
+          <h4>Links</h4>
+          <a href="https://linktr.ee/priv">linktr.ee/priv</a>
+        </div>
+        <div class="contact-card">
+          <h4>Management</h4>
+          <a href="https://hlpfl.org">HLPFL</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 PRIV · HLPFL · All Rights Reserved</p>
+    </div>
+  </footer>
+
+</body>
+</html>

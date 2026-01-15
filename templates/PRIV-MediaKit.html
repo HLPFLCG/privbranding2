@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIV Media Kit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #000000;
+      --white: #FFFFFF;
+      --chrome-light: #E0E0E0;
+      --chrome-mid: #A8A8A8;
+      --chrome-dark: #707070;
+      --surface: #0A0A0A;
+      --surface-elevated: #141414;
+      --border: #1F1F1F;
+      --text-primary: #FFFFFF;
+      --text-secondary: #888888;
+      --text-muted: #555555;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--black);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    .serif {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    section:last-child {
+      border-bottom: none;
+    }
+    
+    /* Typography */
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 4rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    
+    h2 {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    
+    h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      color: var(--text-secondary);
+      max-width: 600px;
+    }
+    
+    .tagline {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+    }
+    
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(180deg, var(--black) 0%, var(--surface) 100%);
+    }
+    
+    .hero-logo {
+      width: 320px;
+      margin-bottom: 2rem;
+    }
+    
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(180deg, var(--chrome-mid) 0%, transparent 100%);
+    }
+    
+    /* Logo Section */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-top: 40px;
+    }
+    
+    .logo-card {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      padding: 60px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      position: relative;
+    }
+    
+    .logo-card.light {
+      background: var(--white);
+    }
+    
+    .logo-card img {
+      max-width: 200px;
+      height: auto;
+    }
+    
+    .logo-card-label {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    
+    .logo-card.light .logo-card-label {
+      color: var(--chrome-dark);
+    }
+    
+    /* Color System */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    
+    .color-swatch {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+      border: 1px solid var(--border);
+    }
+    
+    .color-swatch.black {
+      background: var(--black);
+    }
+    
+    .color-swatch.white {
+      background: var(--white);
+      color: var(--black);
+    }
+    
+    .color-swatch.chrome {
+      background: linear-gradient(135deg, #E8E8E8 0%, #A8A8A8 50%, #C8C8C8 100%);
+      color: var(--black);
+    }
+    
+    .color-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    
+    .color-hex {
+      font-size: 0.75rem;
+      font-family: monospace;
+      opacity: 0.7;
+    }
+    
+    /* Typography Showcase */
+    .type-showcase {
+      margin-top: 40px;
+    }
+    
+    .type-sample {
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .type-sample:last-child {
+      border-bottom: none;
+    }
+    
+    .type-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    
+    .type-display {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+    }
+    
+    .type-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 500px;
+    }
+    
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-top: 40px;
+    }
+    
+    .stat {
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+    }
+    
+    .stat-value {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--chrome-light);
+      margin-bottom: 8px;
+    }
+    
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    
+    /* Bio */
+    .bio-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 80px;
+      margin-top: 40px;
+    }
+    
+    .bio-text p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    
+    .bio-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .detail-item {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .detail-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    
+    .detail-value {
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+    
+    /* Photos */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+    
+    .photo-card {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: filter 0.3s ease;
+    }
+    
+    .photo-card:hover img {
+      filter: grayscale(0%);
+    }
+    
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-top: 40px;
+    }
+    
+    .contact-block {
+      padding: 40px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+    }
+    
+    .contact-block h4 {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    
+    .contact-link {
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    .contact-link:hover {
+      color: var(--chrome-light);
+    }
+    
+    /* Usage Guidelines */
+    .guidelines {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 40px;
+    }
+    
+    .guideline-list {
+      list-style: none;
+    }
+    
+    .guideline-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .guideline-list li::before {
+      content: '✓';
+      color: var(--chrome-mid);
+    }
+    
+    .guideline-list.dont li::before {
+      content: '✕';
+      color: #666;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 60px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    
+    footer p {
+      margin: 0 auto;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    
+    /* Top Tracks */
+    .tracks-list {
+      margin-top: 40px;
+    }
+    
+    .track {
+      display: grid;
+      grid-template-columns: 40px 1fr 100px;
+      gap: 20px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+    }
+    
+    .track-num {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+    }
+    
+    .track-title {
+      font-size: 1rem;
+    }
+    
+    .track-streams {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-align: right;
+      font-family: monospace;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+      
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .logo-grid,
+      .color-grid,
+      .stats-grid,
+      .bio-content,
+      .photo-grid,
+      .contact-grid,
+      .guidelines {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero -->
+  <section class="hero">
+    <svg class="hero-logo" viewBox="0 0 320 70" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hero-chrome" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#E8E8E8"/>
+          <stop offset="25%" style="stop-color:#D4D4D4"/>
+          <stop offset="50%" style="stop-color:#A8A8A8"/>
+          <stop offset="75%" style="stop-color:#C8C8C8"/>
+          <stop offset="100%" style="stop-color:#B0B0B0"/>
+        </linearGradient>
+      </defs>
+      <g>
+        <path d="M0 0 L0 70 L12 70 L12 45 L30 45 C50 45 55 35 55 22.5 C55 10 50 0 30 0 Z M12 12 L28 12 C38 12 42 16 42 22.5 C42 29 38 33 28 33 L12 33 Z" fill="url(#hero-chrome)"/>
+        <path d="M70 0 L70 70 L82 70 L82 45 L95 45 L115 70 L130 70 L108 43 C118 40 125 32 125 22.5 C125 10 118 0 98 0 Z M82 12 L96 12 C108 12 112 16 112 22.5 C112 29 108 33 96 33 L82 33 Z" fill="url(#hero-chrome)"/>
+        <path d="M145 0 L145 70 L157 70 L157 0 Z" fill="url(#hero-chrome)"/>
+        <path d="M145 -10 L157 -10 L157 -5 L145 -5 Z" fill="url(#hero-chrome)" opacity="0.5"/>
+        <path d="M175 0 L200 70 L212 70 L237 0 L224 0 L206 55 L188 0 Z" fill="url(#hero-chrome)"/>
+      </g>
+    </svg>
+    <p class="tagline">Minds Meet in Oblivion*+</p>
+    <p style="margin-top: 40px; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);">Media Kit · 2026</p>
+  </section>
+  
+  <!-- Bio -->
+  <section>
+    <div class="container">
+      <h2>About</h2>
+      <div class="bio-content">
+        <div class="bio-text">
+          <p>PRIV's sound is a journey into the dark, nightmarish realm of Oblivion—a place where medieval echoes meet nature's untamed, ominous beauty.</p>
+          <p>Drawing influence from the daedric landscapes of ancient lore, PRIV channels an otherworldly tradition of storytelling in how vocals and melodies intertwine—feeling this introspective longing with often vulnerable intentions.</p>
+          <p>Oblivion is a place where nightmarish creatures live... and where people's hopes and dreams go to die. That's the kind of energy brought to every track—the feeling of the dark and near, of melodic landscapes and potent musical immensities, with the nature of interconnected feeling of hopes and dreams lost in a desolate, forgotten world.</p>
+        </div>
+        <div class="bio-details">
+          <div class="detail-item">
+            <div class="detail-label">Genre</div>
+            <div class="detail-value">Dark Music / Medieval / Nature</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Location</div>
+            <div class="detail-value">Grand Rapids, MI</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Label</div>
+            <div class="detail-value">HLPFL</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Management</div>
+            <div class="detail-value">HLPFL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Stats -->
+  <section>
+    <div class="container">
+      <h2>By The Numbers</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-value">290K+</div>
+          <div class="stat-label">Total Streams</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">23K</div>
+          <div class="stat-label">Monthly Listeners</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">1.8K</div>
+          <div class="stat-label">Instagram Followers</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">15</div>
+          <div class="stat-label">Releases</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Top Tracks -->
+  <section>
+    <div class="container">
+      <h2>Top Tracks</h2>
+      <div class="tracks-list">
+        <div class="track">
+          <span class="track-num">01</span>
+          <span class="track-title">growing up</span>
+          <span class="track-streams">120,975</span>
+        </div>
+        <div class="track">
+          <span class="track-num">02</span>
+          <span class="track-title">libra</span>
+          <span class="track-streams">49,148</span>
+        </div>
+        <div class="track">
+          <span class="track-num">03</span>
+          <span class="track-title">fiction</span>
+          <span class="track-streams">22,579</span>
+        </div>
+        <div class="track">
+          <span class="track-num">04</span>
+          <span class="track-title">memories</span>
+          <span class="track-streams">19,535</span>
+        </div>
+        <div class="track">
+          <span class="track-num">05</span>
+          <span class="track-title">bones</span>
+          <span class="track-streams">15,519</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Logo System -->
+  <section>
+    <div class="container">
+      <h2>Logo System</h2>
+      <h3>Primary Wordmark</h3>
+      <p>The PRIV wordmark is designed with clean, geometric letterforms featuring a subtle accent mark above the I—a distinctive element that adds intrigue while maintaining minimalism.</p>
+      
+      <div class="logo-grid">
+        <div class="logo-card">
+          <svg viewBox="0 0 240 70" width="200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="card-chrome" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#E8E8E8"/>
+                <stop offset="50%" style="stop-color:#A8A8A8"/>
+                <stop offset="100%" style="stop-color:#C8C8C8"/>
+              </linearGradient>
+            </defs>
+            <g>
+              <path d="M0 0 L0 70 L12 70 L12 45 L30 45 C50 45 55 35 55 22.5 C55 10 50 0 30 0 Z M12 12 L28 12 C38 12 42 16 42 22.5 C42 29 38 33 28 33 L12 33 Z" fill="url(#card-chrome)"/>
+              <path d="M70 0 L70 70 L82 70 L82 45 L95 45 L115 70 L130 70 L108 43 C118 40 125 32 125 22.5 C125 10 118 0 98 0 Z M82 12 L96 12 C108 12 112 16 112 22.5 C112 29 108 33 96 33 L82 33 Z" fill="url(#card-chrome)"/>
+              <path d="M145 0 L145 70 L157 70 L157 0 Z" fill="url(#card-chrome)"/>
+              <path d="M145 -10 L157 -10 L157 -5 L145 -5 Z" fill="url(#card-chrome)" opacity="0.5"/>
+              <path d="M175 0 L200 70 L212 70 L237 0 L224 0 L206 55 L188 0 Z" fill="url(#card-chrome)"/>
+            </g>
+          </svg>
+          <span class="logo-card-label">Chrome on Dark</span>
+        </div>
+        
+        <div class="logo-card light">
+          <svg viewBox="0 0 240 70" width="200" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path d="M0 0 L0 70 L12 70 L12 45 L30 45 C50 45 55 35 55 22.5 C55 10 50 0 30 0 Z M12 12 L28 12 C38 12 42 16 42 22.5 C42 29 38 33 28 33 L12 33 Z" fill="#000000"/>
+              <path d="M70 0 L70 70 L82 70 L82 45 L95 45 L115 70 L130 70 L108 43 C118 40 125 32 125 22.5 C125 10 118 0 98 0 Z M82 12 L96 12 C108 12 112 16 112 22.5 C112 29 108 33 96 33 L82 33 Z" fill="#000000"/>
+              <path d="M145 0 L145 70 L157 70 L157 0 Z" fill="#000000"/>
+              <path d="M145 -10 L157 -10 L157 -5 L145 -5 Z" fill="#000000" opacity="0.5"/>
+              <path d="M175 0 L200 70 L212 70 L237 0 L224 0 L206 55 L188 0 Z" fill="#000000"/>
+            </g>
+          </svg>
+          <span class="logo-card-label">Black on Light</span>
+        </div>
+        
+        <div class="logo-card">
+          <svg viewBox="0 0 240 70" width="200" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path d="M0 0 L0 70 L12 70 L12 45 L30 45 C50 45 55 35 55 22.5 C55 10 50 0 30 0 Z M12 12 L28 12 C38 12 42 16 42 22.5 C42 29 38 33 28 33 L12 33 Z" fill="#FFFFFF"/>
+              <path d="M70 0 L70 70 L82 70 L82 45 L95 45 L115 70 L130 70 L108 43 C118 40 125 32 125 22.5 C125 10 118 0 98 0 Z M82 12 L96 12 C108 12 112 16 112 22.5 C112 29 108 33 96 33 L82 33 Z" fill="#FFFFFF"/>
+              <path d="M145 0 L145 70 L157 70 L157 0 Z" fill="#FFFFFF"/>
+              <path d="M145 -10 L157 -10 L157 -5 L145 -5 Z" fill="#FFFFFF" opacity="0.5"/>
+              <path d="M175 0 L200 70 L212 70 L237 0 L224 0 L206 55 L188 0 Z" fill="#FFFFFF"/>
+            </g>
+          </svg>
+          <span class="logo-card-label">White on Dark</span>
+        </div>
+        
+        <div class="logo-card" style="background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);">
+          <svg viewBox="0 0 64 64" width="80" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="icon-chrome" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#E0E0E0"/>
+                <stop offset="50%" style="stop-color:#A0A0A0"/>
+                <stop offset="100%" style="stop-color:#C0C0C0"/>
+              </linearGradient>
+            </defs>
+            <circle cx="32" cy="32" r="30" fill="#000000" stroke="#333" stroke-width="1"/>
+            <g transform="translate(14, 20) scale(0.6)">
+              <path d="M0 0 L0 70 L12 70 L12 45 L30 45 C50 45 55 35 55 22.5 C55 10 50 0 30 0 Z M12 12 L28 12 C38 12 42 16 42 22.5 C42 29 38 33 28 33 L12 33 Z" fill="url(#icon-chrome)"/>
+            </g>
+          </svg>
+          <span class="logo-card-label">Icon Mark</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Color System -->
+  <section>
+    <div class="container">
+      <h2>Color System</h2>
+      <p>A restrained palette reflecting the duality of light and shadow—pure black as the foundation, white for contrast, and chrome for metallic depth.</p>
+      
+      <div class="color-grid">
+        <div class="color-swatch black">
+          <div class="color-name">Void Black</div>
+          <div class="color-hex">#000000</div>
+        </div>
+        <div class="color-swatch white">
+          <div class="color-name">Pure White</div>
+          <div class="color-hex">#FFFFFF</div>
+        </div>
+        <div class="color-swatch chrome">
+          <div class="color-name">Chrome</div>
+          <div class="color-hex">#A8A8A8 → #E0E0E0</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Typography -->
+  <section>
+    <div class="container">
+      <h2>Typography</h2>
+      <div class="type-showcase">
+        <div class="type-sample">
+          <div class="type-label">Display / Headlines</div>
+          <div class="type-display">Cormorant Garamond</div>
+          <p style="margin-top: 12px;">Elegant serif for titles, headlines, and statements. Light weight preferred for maximum impact.</p>
+        </div>
+        <div class="type-sample">
+          <div class="type-label">Body / Interface</div>
+          <div class="type-body">Inter — A clean, modern sans-serif for body text, captions, and interface elements. Maintains readability while complementing the editorial aesthetic.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Usage Guidelines -->
+  <section>
+    <div class="container">
+      <h2>Logo Usage</h2>
+      <div class="guidelines">
+        <div>
+          <h3 style="font-size: 1rem; margin-bottom: 20px;">Do</h3>
+          <ul class="guideline-list">
+            <li>Use on solid black or white backgrounds</li>
+            <li>Maintain minimum clear space around logo</li>
+            <li>Use chrome version on dark backgrounds</li>
+            <li>Scale proportionally</li>
+            <li>Use icon mark for small applications</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size: 1rem; margin-bottom: 20px;">Don't</h3>
+          <ul class="guideline-list dont">
+            <li>Place on busy or patterned backgrounds</li>
+            <li>Stretch or distort the logo</li>
+            <li>Change the logo colors arbitrarily</li>
+            <li>Add effects like drop shadows</li>
+            <li>Rotate or skew the logo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact -->
+  <section>
+    <div class="container">
+      <h2>Connect</h2>
+      <div class="contact-grid">
+        <div class="contact-block">
+          <h4>Streaming</h4>
+          <a href="https://open.spotify.com/artist/0jIqPF7laDAaZmSeoSzLlt" class="contact-link">Spotify: PRIV</a>
+        </div>
+        <div class="contact-block">
+          <h4>Social</h4>
+          <a href="https://instagram.com/whereispriv" class="contact-link">@whereispriv</a>
+        </div>
+        <div class="contact-block">
+          <h4>Link Hub</h4>
+          <a href="https://linktr.ee/priv" class="contact-link">linktr.ee/priv</a>
+        </div>
+        <div class="contact-block">
+          <h4>Management</h4>
+          <a href="https://hlpfl.org" class="contact-link">HLPFL — hlpfl.org</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="container">
+      <p>© 2026 PRIV · All Rights Reserved · HLPFL</p>
+    </div>
+  </footer>
+</body>
+</html>
