@@ -21,9 +21,9 @@
       --bright: #E8E8E8;
       --white: #FFFFFF;
     }
-    
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
     body {
       font-family: 'Inter', sans-serif;
       background: var(--void);
@@ -31,7 +31,7 @@
       line-height: 1.6;
       font-weight: 300;
     }
-    
+
     /* Subtle noise texture */
     body::after {
       content: '';
@@ -42,21 +42,21 @@
       pointer-events: none;
       z-index: 10000;
     }
-    
+
     .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
-    
+
     /* Layout */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 48px;
     }
-    
+
     section {
       padding: 100px 0;
       border-bottom: 1px solid var(--border);
     }
-    
+
     /* Typography */
     h1 {
       font-family: 'Cormorant Garamond', serif;
@@ -67,7 +67,7 @@
       color: var(--subtle);
       margin-bottom: 3rem;
     }
-    
+
     h2 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 2.5rem;
@@ -75,13 +75,13 @@
       margin-bottom: 1.5rem;
       color: var(--bright);
     }
-    
-    p { 
-      color: var(--silver); 
+
+    p {
+      color: var(--silver);
       max-width: 560px;
       font-size: 0.95rem;
     }
-    
+
     /* Hero */
     .hero {
       min-height: 100vh;
@@ -90,18 +90,18 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: 
+      background:
         radial-gradient(ellipse 100% 60% at 50% 40%, var(--surface) 0%, transparent 60%),
         var(--void);
       border-bottom: none;
       position: relative;
     }
-    
+
     .hero-logo {
       width: min(420px, 75vw);
       margin-bottom: 2rem;
     }
-    
+
     .tagline {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.1rem;
@@ -111,14 +111,14 @@
       letter-spacing: 0.1em;
       margin-bottom: 4rem;
     }
-    
+
     .hero-meta {
       font-size: 0.65rem;
       letter-spacing: 0.35em;
       text-transform: uppercase;
       color: var(--muted);
     }
-    
+
     .scroll-hint {
       position: absolute;
       bottom: 48px;
@@ -128,7 +128,7 @@
       height: 60px;
       background: linear-gradient(180deg, var(--muted) 0%, transparent 100%);
     }
-    
+
     /* Stats Bar */
     .stats-bar {
       background: var(--deep);
@@ -136,20 +136,20 @@
       border-bottom: 1px solid var(--border);
       padding: 0;
     }
-    
+
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
     }
-    
+
     .stat {
       padding: 48px 32px;
       text-align: center;
       border-right: 1px solid var(--border);
     }
-    
+
     .stat:last-child { border-right: none; }
-    
+
     .stat-value {
       font-family: 'Cormorant Garamond', serif;
       font-size: 3rem;
@@ -158,14 +158,14 @@
       line-height: 1;
       margin-bottom: 8px;
     }
-    
+
     .stat-label {
       font-size: 0.6rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--subtle);
     }
-    
+
     /* Bio Section */
     .bio-grid {
       display: grid;
@@ -173,13 +173,13 @@
       gap: 80px;
       margin-top: 40px;
     }
-    
+
     .bio-text p {
       font-size: 1.05rem;
       line-height: 1.9;
       margin-bottom: 1.5rem;
     }
-    
+
     .bio-text p:first-of-type::first-letter {
       font-family: 'Cormorant Garamond', serif;
       font-size: 3.5rem;
@@ -188,13 +188,13 @@
       padding-right: 12px;
       color: var(--bright);
     }
-    
+
     .info-card {
       background: var(--surface);
       border: 1px solid var(--border);
       padding: 40px;
     }
-    
+
     .info-row {
       display: flex;
       justify-content: space-between;
@@ -202,25 +202,25 @@
       padding: 16px 0;
       border-bottom: 1px solid var(--border);
     }
-    
+
     .info-row:last-child { border-bottom: none; }
-    
+
     .info-label {
       font-size: 0.6rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--subtle);
     }
-    
+
     .info-value {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1rem;
       color: var(--light);
     }
-    
+
     /* Tracks */
     .tracks-list { margin-top: 40px; }
-    
+
     .track {
       display: grid;
       grid-template-columns: 60px 1fr 100px;
@@ -229,31 +229,31 @@
       border-bottom: 1px solid var(--border);
       align-items: center;
     }
-    
+
     .track:hover {
       background: linear-gradient(90deg, transparent, var(--surface), transparent);
     }
-    
+
     .track-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.5rem;
       color: var(--muted);
     }
-    
+
     .track-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.4rem;
       font-style: italic;
       color: var(--light);
     }
-    
+
     .track-streams {
       font-size: 0.8rem;
       color: var(--subtle);
       text-align: right;
       font-variant-numeric: tabular-nums;
     }
-    
+
     /* Logo Section */
     .logo-grid {
       display: grid;
@@ -261,7 +261,7 @@
       gap: 24px;
       margin-top: 40px;
     }
-    
+
     .logo-card {
       aspect-ratio: 16/10;
       display: flex;
@@ -271,24 +271,24 @@
       border: 1px solid var(--border);
       padding: 32px;
     }
-    
+
     .logo-card.dark {
       background: var(--void);
     }
-    
+
     .logo-card.light {
       background: linear-gradient(135deg, #F5F5F5 0%, #E0E0E0 100%);
     }
-    
+
     .logo-card.chrome-bg {
       background: linear-gradient(180deg, var(--surface) 0%, var(--void) 100%);
     }
-    
+
     .logo-card svg {
       width: 70%;
       height: auto;
     }
-    
+
     .logo-card-label {
       position: absolute;
       bottom: 12px;
@@ -298,11 +298,11 @@
       text-transform: uppercase;
       color: var(--muted);
     }
-    
+
     .logo-card.light .logo-card-label {
       color: var(--subtle);
     }
-    
+
     /* Colors */
     .color-grid {
       display: grid;
@@ -311,7 +311,7 @@
       margin-top: 40px;
       border: 1px solid var(--border);
     }
-    
+
     .color-swatch {
       aspect-ratio: 1.2;
       display: flex;
@@ -320,14 +320,14 @@
       padding: 24px;
       border-right: 1px solid var(--border);
     }
-    
+
     .color-swatch:last-child { border-right: none; }
-    
+
     .color-swatch.black { background: var(--void); }
     .color-swatch.white { background: var(--white); }
     .color-swatch.chrome {
-      background: linear-gradient(180deg, 
-        #FFFFFF 0%, 
+      background: linear-gradient(180deg,
+        #FFFFFF 0%,
         #D0D0D0 15%,
         #808080 40%,
         #404040 55%,
@@ -336,27 +336,27 @@
         #B0B0B0 100%
       );
     }
-    
+
     .color-name {
       font-size: 0.75rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       margin-bottom: 4px;
     }
-    
+
     .color-hex {
       font-size: 0.7rem;
       font-family: monospace;
       opacity: 0.6;
     }
-    
+
     .color-swatch.white .color-name,
     .color-swatch.white .color-hex,
     .color-swatch.chrome .color-name,
     .color-swatch.chrome .color-hex {
       color: var(--void);
     }
-    
+
     /* Typography Section */
     .type-grid {
       display: grid;
@@ -364,13 +364,13 @@
       gap: 48px;
       margin-top: 40px;
     }
-    
+
     .type-card {
       background: var(--surface);
       border: 1px solid var(--border);
       padding: 40px;
     }
-    
+
     .type-label {
       font-size: 0.55rem;
       letter-spacing: 0.2em;
@@ -378,7 +378,7 @@
       color: var(--subtle);
       margin-bottom: 20px;
     }
-    
+
     .type-sample-display {
       font-family: 'Cormorant Garamond', serif;
       font-size: 2rem;
@@ -386,7 +386,7 @@
       color: var(--bright);
       margin-bottom: 16px;
     }
-    
+
     .type-sample-body {
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
@@ -394,7 +394,7 @@
       line-height: 1.8;
       color: var(--silver);
     }
-    
+
     /* Contact */
     .contact-grid {
       display: grid;
@@ -402,18 +402,18 @@
       gap: 24px;
       margin-top: 40px;
     }
-    
+
     .contact-card {
       background: var(--surface);
       border: 1px solid var(--border);
       padding: 32px;
       transition: border-color 0.2s ease;
     }
-    
+
     .contact-card:hover {
       border-color: var(--muted);
     }
-    
+
     .contact-card h4 {
       font-size: 0.55rem;
       letter-spacing: 0.2em;
@@ -421,7 +421,7 @@
       color: var(--subtle);
       margin-bottom: 16px;
     }
-    
+
     .contact-card a {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.1rem;
@@ -429,11 +429,11 @@
       color: var(--light);
       text-decoration: none;
     }
-    
+
     .contact-card a:hover {
       color: var(--white);
     }
-    
+
     /* Five Pillars */
     .pillars {
       display: flex;
@@ -441,11 +441,11 @@
       margin-top: 40px;
       flex-wrap: wrap;
     }
-    
+
     .pillar {
       text-align: center;
     }
-    
+
     .pillar-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.2rem;
@@ -453,21 +453,21 @@
       color: var(--light);
       margin-bottom: 4px;
     }
-    
+
     .pillar-desc {
       font-size: 0.65rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--subtle);
     }
-    
+
     /* Footer */
     footer {
       padding: 60px 0;
       text-align: center;
       border-top: 1px solid var(--border);
     }
-    
+
     footer p {
       font-size: 0.6rem;
       letter-spacing: 0.25em;
@@ -475,7 +475,7 @@
       color: var(--muted);
       margin: 0 auto;
     }
-    
+
     /* Responsive */
     @media (max-width: 900px) {
       .container { padding: 0 24px; }
@@ -550,7 +550,7 @@
         <div class="bio-text">
           <p>PRIV's sound is a journey into the dark, nightmarish realm of Oblivion—a place where medieval echoes meet nature's untamed, ominous beauty. Drawing influence from the daedric landscapes of ancient lore, PRIV channels an otherworldly tradition of storytelling in how vocals and melodies intertwine—feeling this introspective longing with often vulnerable intentions.</p>
           <p>Oblivion is a place where nightmarish creatures live... and where people's hopes and dreams go to die. That's the kind of energy brought to every track—the feeling of the dark and near, of melodic landscapes and potent musical immensities, with the nature of interconnected feeling of hopes and dreams lost in a desolate, forgotten world.</p>
-          
+
           <h2 style="margin-top: 48px;">Five Pillars</h2>
           <div class="pillars">
             <div class="pillar">
@@ -651,7 +651,7 @@
       <h1>Logo & Font Pack</h1>
       <h2>Primary Wordmark</h2>
       <p>Heavy letterforms with signature accent mark above the I. Available in Black, White, and Chrome treatments.</p>
-      
+
       <div class="logo-grid">
         <div class="logo-card dark">
           <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
@@ -665,7 +665,7 @@
           </svg>
           <span class="logo-card-label">White</span>
         </div>
-        
+
         <div class="logo-card light">
           <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(0, 5)">
@@ -678,7 +678,7 @@
           </svg>
           <span class="logo-card-label">Black</span>
         </div>
-        
+
         <div class="logo-card chrome-bg">
           <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -713,7 +713,7 @@
       <h1>Color System</h1>
       <h2>The Palette</h2>
       <p>Black, White, and Chrome. Ordered by visual weight—darkness grounds, light illuminates, chrome bridges.</p>
-      
+
       <div class="color-grid">
         <div class="color-swatch black">
           <div class="color-name">Black</div>
