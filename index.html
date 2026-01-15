@@ -42,7 +42,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
   <style>
     :root {
       --void: #000000;
@@ -55,6 +56,11 @@
       --text-muted: #888888;
       --text-dim: #555555;
       --accent: #ffffff;
+      --accent-gold: #c9a962;
+      --accent-glow: rgba(201, 169, 98, 0.15);
+      --transition-fast: 0.2s ease;
+      --transition-medium: 0.3s ease;
+      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * {
@@ -141,6 +147,126 @@
 
     .nav-links a:hover {
       color: var(--text);
+    }
+
+    .nav-links a.external-link {
+      color: var(--accent-gold);
+      position: relative;
+    }
+
+    .nav-links a.external-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-gold);
+      transition: width var(--transition-medium);
+    }
+
+    .nav-links a.external-link:hover::after {
+      width: 100%;
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      background: transparent;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all var(--transition-medium);
+    }
+
+    .menu-toggle:hover {
+      border-color: var(--border-light);
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--text-muted);
+      transition: all var(--transition-medium);
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Mobile Navigation Drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: min(320px, 85vw);
+      height: 100vh;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      z-index: 150;
+      flex-direction: column;
+      padding: 80px 32px 32px;
+      gap: 8px;
+      transition: right var(--transition-slow);
+      overflow-y: auto;
+    }
+
+    .mobile-nav.active {
+      right: 0;
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 16px 0;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: all var(--transition-medium);
+    }
+
+    .mobile-nav a:hover,
+    .mobile-nav a:focus {
+      color: var(--text);
+      padding-left: 12px;
+    }
+
+    .mobile-nav a.highlight {
+      color: var(--accent-gold);
+      border-color: var(--accent-gold);
+    }
+
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 140;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-medium);
+    }
+
+    .mobile-nav-overlay.active {
+      opacity: 1;
+      visibility: visible;
     }
 
     /* Hero */
@@ -282,8 +408,25 @@
 
     .template-card:hover {
       border-color: var(--border-light);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      transform: translateY(-8px);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 40px var(--accent-glow);
+    }
+
+    .template-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 0%, var(--accent-glow) 50%, transparent 100%);
+      opacity: 0;
+      transition: opacity var(--transition-medium);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .template-card:hover::before {
+      opacity: 1;
     }
 
     .template-preview {
@@ -293,6 +436,29 @@
       overflow: hidden;
     }
 
+    /* Loading shimmer effect */
+    .template-preview::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        var(--void) 0%,
+        var(--surface) 20%,
+        var(--elevated) 40%,
+        var(--surface) 60%,
+        var(--void) 100%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      z-index: 0;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
     .template-preview iframe {
       width: 400%;
       height: 400%;
@@ -300,6 +466,8 @@
       transform-origin: top left;
       border: none;
       pointer-events: none;
+      position: relative;
+      z-index: 1;
     }
 
     .template-preview-overlay {
@@ -527,6 +695,66 @@
       }
     }
 
+    /* Scroll to Top Button */
+    .scroll-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 48px;
+      height: 48px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all var(--transition-medium);
+      z-index: 90;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .scroll-top:hover {
+      background: var(--elevated);
+      border-color: var(--accent-gold);
+      transform: translateY(-4px);
+    }
+
+    .scroll-top svg {
+      color: var(--text-muted);
+      transition: color var(--transition-medium);
+    }
+
+    .scroll-top:hover svg {
+      color: var(--accent-gold);
+    }
+
+    /* Footer Link Styles */
+    footer a {
+      color: var(--accent-gold);
+      text-decoration: none;
+      transition: color var(--transition-medium);
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    /* Responsive - Tablet (Landscape) */
+    @media (max-width: 1200px) {
+      .template-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     /* Responsive - Mobile */
     @media (max-width: 768px) {
       header {
@@ -536,6 +764,15 @@
 
       .nav-links {
         display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .mobile-nav,
+      .mobile-nav-overlay {
+        display: flex;
       }
 
       .hero {
@@ -683,10 +920,25 @@
     </a>
     <nav class="nav-links" role="navigation" aria-label="Main navigation">
       <a href="#templates">Templates</a>
+      <a href="https://hlpfl.org" target="_blank" rel="noopener noreferrer" class="external-link" aria-label="HLPFL (opens in new tab)">HLPFL</a>
       <a href="https://open.spotify.com/artist/0jIqPF7laDAaZmSeoSzLlt" target="_blank" rel="noopener noreferrer" aria-label="PRIV on Spotify (opens in new tab)">Spotify</a>
       <a href="https://instagram.com/whereispriv" target="_blank" rel="noopener noreferrer" aria-label="PRIV on Instagram (opens in new tab)">Instagram</a>
     </nav>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </header>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+  <nav class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="#templates" data-close-menu>Templates</a>
+    <a href="https://hlpfl.org" target="_blank" rel="noopener noreferrer" class="highlight">HLPFL</a>
+    <a href="https://open.spotify.com/artist/0jIqPF7laDAaZmSeoSzLlt" target="_blank" rel="noopener noreferrer">Spotify</a>
+    <a href="https://instagram.com/whereispriv" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </nav>
 
   <!-- Hero -->
   <section class="hero" aria-labelledby="hero-title">
@@ -935,9 +1187,16 @@
     </div>
   </div>
 
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+
   <!-- Footer -->
   <footer>
-    <p>© 2026 PRIV · HLPFL · All Rights Reserved</p>
+    <p>© 2026 PRIV · <a href="https://hlpfl.org" target="_blank" rel="noopener noreferrer">HLPFL</a> · All Rights Reserved</p>
   </footer>
 
   <script>
@@ -1072,6 +1331,88 @@
       document.querySelectorAll('.template-preview iframe[loading="lazy"]').forEach(iframe => {
         iframeObserver.observe(iframe);
       });
+    }
+
+    // Mobile Menu Functionality
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+
+    function toggleMobileMenu() {
+      const isOpen = mobileNav.classList.contains('active');
+
+      menuToggle.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      mobileNavOverlay.classList.toggle('active');
+      menuToggle.setAttribute('aria-expanded', !isOpen);
+
+      if (!isOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    function closeMobileMenu() {
+      menuToggle.classList.remove('active');
+      mobileNav.classList.remove('active');
+      mobileNavOverlay.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', toggleMobileMenu);
+    mobileNavOverlay.addEventListener('click', closeMobileMenu);
+
+    // Close mobile menu when clicking internal links
+    document.querySelectorAll('.mobile-nav a[data-close-menu]').forEach(link => {
+      link.addEventListener('click', () => {
+        closeMobileMenu();
+      });
+    });
+
+    // Close mobile menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+        closeMobileMenu();
+        menuToggle.focus();
+      }
+    });
+
+    // Scroll to Top Button
+    const scrollTopBtn = document.getElementById('scroll-top');
+    let scrollTimeout;
+
+    function handleScroll() {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (window.scrollY > 400) {
+          scrollTopBtn.classList.add('visible');
+        } else {
+          scrollTopBtn.classList.remove('visible');
+        }
+      }, 50);
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Performance: requestIdleCallback for non-critical animations
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        // Add loaded class to body for fade-in effects
+        document.body.classList.add('loaded');
+      });
+    } else {
+      setTimeout(() => {
+        document.body.classList.add('loaded');
+      }, 100);
     }
   </script>
 </body>
