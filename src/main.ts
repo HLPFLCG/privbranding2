@@ -48,8 +48,21 @@ class App {
     // Save selected template to state
     this.stateManager.setSelectedTemplate(templateId);
     
-    // Navigate to builder page
-    window.location.href = `builder.html?template=${templateId}`;
+    // Map template ID to actual template file
+    const templateFiles: Record<string, string> = {
+      'standard': 'templates/PRIV-MediaKit.html',
+      'dramatic': 'templates/PRIV-MediaKit-Dramatic.html',
+      'v2': 'templates/PRIV-MediaKit-v2.html',
+      'brand-board': 'templates/PRIV-BrandBoard.html',
+      'mediakit-1': 'templates/priv-mediakit_1.html',
+      'mediakit-2': 'templates/priv-mediakit_2.html'
+    };
+
+    // Navigate to template viewer to show original HTML
+    const templateFile = templateFiles[templateId];
+    if (templateFile) {
+      window.location.href = `template-viewer.html?template=${encodeURIComponent(templateFile)}`;
+    }
   }
 
   private loadSavedState() {

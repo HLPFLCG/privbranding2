@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIV Media Kit - Template Viewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --chrome-light: #E0E0E0;
+            --surface: #0A0A0A;
+            --border: #1F1F1F;
+            --accent: #FF6B35;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+        }
+
+        .template-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .template-selector select {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .template-selector select:hover {
+            border-color: var(--chrome-light);
+        }
+
+        .template-selector option {
+            background: var(--surface);
+            color: var(--white);
+        }
+
+        .back-button {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            border-color: var(--chrome-light);
+            background: var(--surface);
+        }
+
+        .template-frame {
+            width: 100%;
+            min-height: calc(100vh - 80px);
+            border: none;
+            background: var(--black);
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            color: var(--chrome-light);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .template-selector {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>PRIV Media Kit</h1>
+        <div class="template-selector">
+            <select id="templateSelect" onchange="changeTemplate()">
+                <option value="">Select a template...</option>
+                <option value="templates/PRIV-MediaKit.html">Standard</option>
+                <option value="templates/PRIV-MediaKit-Dramatic.html">Dramatic</option>
+                <option value="templates/PRIV-MediaKit-v2.html">Modern V2</option>
+                <option value="templates/PRIV-BrandBoard.html">Brand Board</option>
+                <option value="templates/priv-mediakit_1.html">Media Kit 1</option>
+                <option value="templates/priv-mediakit_2.html">Media Kit 2</option>
+            </select>
+            <a href="index.html" class="back-button">← Back to Builder</a>
+        </div>
+    </div>
+
+    <div id="templateContainer" class="loading">
+        <p>Select a template from the dropdown above</p>
+    </div>
+
+    <script>
+        const templateContainer = document.getElementById('templateContainer');
+        const templateSelect = document.getElementById('templateSelect');
+
+        // Check for template in URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const templateFromUrl = urlParams.get('template');
+
+        if (templateFromUrl) {
+            loadTemplate(templateFromUrl);
+        }
+
+        function changeTemplate() {
+            const selectedTemplate = templateSelect.value;
+            if (selectedTemplate) {
+                loadTemplate(selectedTemplate);
+            }
+        }
+
+        async function loadTemplate(templatePath) {
+            templateContainer.innerHTML = '<p>Loading template...</p>';
+
+            try {
+                const response = await fetch(templatePath);
+                if (response.ok) {
+                    const html = await response.text();
+                    templateContainer.innerHTML = html;
+                    
+                    // Execute any scripts in the loaded template
+                    const scripts = templateContainer.querySelectorAll('script');
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        Array.from(oldScript.attributes).forEach(attr => 
+                            newScript.setAttribute(attr.name, attr.value)
+                        );
+                        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                        oldScript.parentNode?.replaceChild(newScript, oldScript);
+                    });
+                } else {
+                    templateContainer.innerHTML = `<p>Error loading template: ${response.statusText}</p>`;
+                }
+            } catch (error) {
+                templateContainer.innerHTML = `<p>Error loading template: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
